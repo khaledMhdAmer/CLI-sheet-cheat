@@ -1,0 +1,107 @@
+NestJS CLI Setup
+Step 1: Create the Project
+bash# Install NestJS CLI globally (if not installed)
+npm install -g @nestjs/cli
+
+# Create new project
+nest new my-project
+
+# Navigate into project
+cd my-project
+Step 2: Install Database Dependencies (DAL Layer)
+bash# For MySQL/MariaDB
+npm install @nestjs/typeorm typeorm mysql2
+
+# OR for PostgreSQL
+npm install @nestjs/typeorm typeorm pg
+
+# OR for MongoDB
+npm install @nestjs/mongoose mongoose
+
+# Additional useful packages
+npm install @nestjs/config
+npm install class-validator class-transformer
+Step 3: Generate Modules (Layer Separation)
+bash# Generate Database module (DAL configuration)
+nest generate module database
+
+# Generate feature modules (Domain logic)
+nest generate module articles
+nest generate module users
+nest generate module products
+
+# Generate Admin module (CMS layer)
+nest generate module admin
+Step 4: Generate Resources (Controllers + Services + Entities)
+bash# Generate complete API resources
+nest generate resource articles
+# Choose: REST API
+# Choose: Yes (generate CRUD entry points)
+
+nest generate resource users
+# Choose: REST API
+# Choose: Yes
+
+nest generate resource products
+# Choose: REST API
+# Choose: Yes
+
+# Generate Admin resource (CMS)
+nest generate resource admin/dashboard
+# Choose: REST API
+# Choose: No (or Yes, depending on needs)
+Step 5: Generate Additional Components
+bash# Generate standalone services (if needed)
+nest generate service articles/articles
+nest generate service users/users
+
+# Generate controllers (if not created with resource)
+nest generate controller admin/articles
+nest generate controller admin/users
+
+# Generate DTOs (Data Transfer Objects)
+nest generate class articles/dto/create-article.dto --no-spec
+nest generate class articles/dto/update-article.dto --no-spec
+
+# Generate Guards (Authentication/Authorization)
+nest generate guard common/auth
+nest generate guard common/roles
+
+# Generate Interceptors
+nest generate interceptor common/logging
+
+# Generate Pipes (Validation)
+nest generate pipe common/validation
+Step 6: Verify Structure
+bash# Check project structure
+ls -R src/
+
+# Your structure should look like:
+# src/
+# ├── admin/
+# ├── articles/
+# ├── users/
+# ├── products/
+# ├── database/
+# └── app.module.ts
+Step 7: Run the Application
+bash# Development mode with watch
+npm run start:dev
+
+# Production mode
+npm run start:prod
+
+# Debug mode
+npm run start:debug
+Step 8: Common Database Commands (TypeORM)
+bash# Generate migration
+npm run typeorm migration:generate -- -n CreateArticlesTable
+
+# Run migrations
+npm run typeorm migration:run
+
+# Revert migration
+npm run typeorm migration:revert
+
+# Create empty migration
+npm run typeorm migration:create -- -n AddColumnToArticles
