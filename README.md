@@ -1,5 +1,3 @@
-Absolutely! Using the CLI is actually faster and more consistent. Here's how to create your entire solution structure:
-
 ## Step 1: Create Solution and Projects
 
 ```bash
@@ -124,5 +122,3 @@ dotnet ef migrations add InitialCreate --project MyProject.DAL --startup-project
 # Update database
 dotnet ef database update --project MyProject.DAL --startup-project MyProject.API
 ```
-
-This CLI approach is especially useful because you can script it, version control it, and it works identically across different machines and operating systems. Would you like me to show you how to set up a basic DbContext and entity in the DAL project next?
