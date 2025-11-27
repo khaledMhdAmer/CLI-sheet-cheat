@@ -1,0 +1,146 @@
+Laravel CLI Setup
+Step 1: Create the Project
+bash# Option 1: Using Laravel Installer (recommended)
+composer global require laravel/installer
+laravel new my-project
+
+# Option 2: Using Composer directly
+composer create-project laravel/laravel my-project
+
+# Navigate into project
+cd my-project
+Step 2: Configure Environment
+bash# Generate application key
+php artisan key:generate
+
+# Copy .env.example to .env (if needed)
+cp .env.example .env
+
+# Edit .env file for database configuration
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=my_database
+# DB_USERNAME=root
+# DB_PASSWORD=your_password
+Step 3: Create Models with Migrations (DAL Layer)
+bash# Create model with migration, controller, and resource controller
+php artisan make:model Article -mcr
+php artisan make:model User -mcr
+php artisan make:model Product -mcr
+php artisan make:model Category -mcr
+
+# Alternative: Create everything at once
+php artisan make:model Article -a
+# -a creates: migration, seeder, factory, policy, controller, and form requests
+Step 4: Create API Controllers (API Layer)
+bash# Create API controllers
+php artisan make:controller API/ArticleController --api
+php artisan make:controller API/UserController --api
+php artisan make:controller API/ProductController --api
+php artisan make:controller API/CategoryController --api
+Step 5: Create Admin Controllers (CMS Layer)
+bash# Create admin controllers with resource methods
+php artisan make:controller Admin/ArticleController --resource
+php artisan make:controller Admin/UserController --resource
+php artisan make:controller Admin/ProductController --resource
+php artisan make:controller Admin/DashboardController
+Step 6: Create Service Layer (Business Logic)
+bash# Create Services directory
+mkdir -p app/Services
+
+# Create service classes
+php artisan make:class Services/ArticleService
+php artisan make:class Services/UserService
+php artisan make:class Services/ProductService
+Step 7: Create Repository Layer (Optional - DAL Pattern)
+bash# Create Repositories directory
+mkdir -p app/Repositories
+
+# Create repository classes
+php artisan make:class Repositories/ArticleRepository
+php artisan make:class Repositories/UserRepository
+php artisan make:class Repositories/ProductRepository
+
+# Create repository interfaces
+mkdir -p app/Repositories/Interfaces
+php artisan make:interface Repositories/Interfaces/ArticleRepositoryInterface
+Step 8: Create Request Validators
+bash# Create form request validation classes
+php artisan make:request StoreArticleRequest
+php artisan make:request UpdateArticleRequest
+php artisan make:request StoreUserRequest
+php artisan make:request UpdateUserRequest
+Step 9: Create Database Seeders
+bash# Create seeders
+php artisan make:seeder ArticleSeeder
+php artisan make:seeder UserSeeder
+php artisan make:seeder CategorySeeder
+php artisan make:seeder DatabaseSeeder
+Step 10: Create Factories (Test Data)
+bash# Create factories
+php artisan make:factory ArticleFactory
+php artisan make:factory UserFactory
+php artisan make:factory ProductFactory
+Step 11: Install API Authentication
+bash# Install Laravel Sanctum (for API authentication)
+php artisan install:api
+
+# OR install Passport (for OAuth2)
+composer require laravel/passport
+php artisan passport:install
+Step 12: Run Database Migrations
+bash# Run all migrations
+php artisan migrate
+
+# Run migrations with seeding
+php artisan migrate --seed
+
+# Rollback last migration
+php artisan migrate:rollback
+
+# Rollback all migrations and re-run
+php artisan migrate:fresh
+
+# Rollback all and seed
+php artisan migrate:fresh --seed
+Step 13: Verify Structure
+bash# List all routes
+php artisan route:list
+
+# List API routes only
+php artisan route:list --path=api
+
+# Check application structure
+ls -la app/
+Step 14: Run the Application
+bash# Start development server
+php artisan serve
+
+# Start on specific port
+php artisan serve --port=8080
+
+# Start on specific host
+php artisan serve --host=0.0.0.0 --port=8000
+Step 15: Additional Useful Commands
+bash# Clear application cache
+php artisan cache:clear
+
+# Clear route cache
+php artisan route:clear
+
+# Clear config cache
+php artisan config:clear
+
+# Clear view cache
+php artisan view:clear
+
+# Optimize application (production)
+php artisan optimize
+
+# Create symbolic link for storage
+php artisan storage:link
+
+# Generate IDE helper files (install barryvdh/laravel-ide-helper first)
+composer require --dev barryvdh/laravel-ide-helper
+php artisan ide-helper:generate
